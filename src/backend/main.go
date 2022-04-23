@@ -29,6 +29,7 @@ func initaliseHandlers(router *mux.Router) {
 	router.HandleFunc("/penyakit/delete/{nama}", controllers.DeletePenyakitByNama).Methods("DELETE")
 
 	router.HandleFunc("/pemeriksaan/get", controllers.GetAllPemeriksaan).Methods("GET")
+	router.HandleFunc("/pemeriksaan/create", controllers.CreatePemeriksaan).Methods("POST")
 }
 
 func initDB() {
@@ -36,7 +37,7 @@ func initDB() {
 		database.Config{
 			ServerName: "localhost:3306",
 			User:       "root",
-			Password:   "",
+			Password:   "@kpop1511",
 			DB:         "tubes3_13520001",
 		}
 	connectionString := database.GetConnectionString(config)
