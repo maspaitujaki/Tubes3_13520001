@@ -7,5 +7,6 @@ type Pemeriksaan struct {
 	Nama     string    `json:"nama"`
 	Penyakit string    `json:"penyakit"`
 	Tanggal  time.Time `json:"tanggal"`
+	Rantai   string    `json:"rantai"`
 	Hasil    bool      `json:"hasil"`
 }
