@@ -29,6 +29,7 @@ func initaliseHandlers(router *mux.Router) {
 	router.HandleFunc("/penyakit/delete/{nama}", controllers.DeletePenyakitByNama).Methods("DELETE")
 
 	router.HandleFunc("/pemeriksaan/get", controllers.GetAllPemeriksaan).Methods("GET")
+	router.HandleFunc("/pemeriksaan/create", controllers.CreatePemeriksaan).Methods("POST")
 }
 
 func initDB() {
