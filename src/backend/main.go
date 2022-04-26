@@ -7,9 +7,11 @@ import (
 
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"github.com/joho/godotenv"
 )
 
 func main() {
@@ -34,12 +36,17 @@ func initaliseHandlers(router *mux.Router) {
 }
 
 func initDB() {
+	errEnv := godotenv.Load()
+	if errEnv != nil {
+		panic("Error loading .env file")
+	}
 	config :=
 		database.Config{
-			ServerName: "localhost:3306",
-			User:       "root",
-			Password:   "@kpop1511",
-			DB:         "tubes3_13520001",
+			User:     os.Getenv("DB_USER"),
+			Password: os.Getenv("DB_PASSWORD"),
+			Host:     os.Getenv("DB_HOST"),
+			Name:     os.Getenv("DB_NAME"),
+			Port:     os.Getenv("DB_PORT"),
 		}
 	connectionString := database.GetConnectionString(config)
 	err := database.Connect(connectionString)
