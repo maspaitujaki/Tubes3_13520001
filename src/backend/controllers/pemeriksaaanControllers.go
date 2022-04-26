@@ -84,7 +84,7 @@ func CreatePemeriksaan(w http.ResponseWriter, r *http.Request) {
 	if cek == -1 {
 		pemeriksaan.Hasil = false
 		pemeriksaan.Tanggal = time.Now()
-	}else{
+	} else {
 		pemeriksaan.Hasil = true
 		pemeriksaan.Tanggal = time.Now()
 	}
@@ -94,12 +94,12 @@ func CreatePemeriksaan(w http.ResponseWriter, r *http.Request) {
 	// pemeriksaan.Tanggal = time.Now()
 
 	// Penambahan ke database
-	// if result := database.Connector.Create(&pemeriksaan); result.Error != nil {
-	// 	w.WriteHeader(http.StatusInternalServerError)
-	// 	return
-	// }
+	if result := database.Connector.Create(&pemeriksaan); result.Error != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 
-	// w.Header().Set("Content-Type", "application/json")
-	// w.WriteHeader(http.StatusCreated)
-	// json.NewEncoder(w).Encode(pemeriksaan)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(pemeriksaan)
 }
