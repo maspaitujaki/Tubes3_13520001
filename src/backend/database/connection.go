@@ -4,14 +4,15 @@ import (
 	"dna-matching-api/entity"
 	"log"
 
-	"github.com/jinzhu/gorm"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 var Connector *gorm.DB
 
 func Connect(connectionString string) error {
 	var err error
-	Connector, err = gorm.Open("mysql", connectionString)
+	Connector, err = gorm.Open(postgres.Open(connectionString), &gorm.Config{})
 	if err != nil {
 		log.Println("Error connecting to database: ", err)
 		return err
