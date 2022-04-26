@@ -26,7 +26,7 @@ func GetPenyakitByNama(w http.ResponseWriter, r *http.Request) {
 
 	var penyakit entity.Penyakit
 
-	if result := database.Connector.Where("nama = ?", key).Find(&penyakit); result.Error != nil {
+	if result := database.Connector.Where("nama = ?", key).Find(&penyakit); result.Error != nil || penyakit.Nama == "" {
 		w.WriteHeader(http.StatusNotFound)
 		return
 	}
