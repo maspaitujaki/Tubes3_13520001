@@ -32,25 +32,28 @@
                   id="nama-penyakit"
                   name="nama-penyakit"
                   placeholder="Penyakit..."
+                  ref="namaPenyakit"
                 />
               </div>
               <div class="form-sequence-dna">
                 <label for="sequence-dna">Sequence DNA:</label><br />
                 <input
                   type="file"
+                  @change="upload"
                   id="sequence-dna"
                   name="sequence-dna"
                   accept=".txt"
+                  ref="doc"
                 /><br />
                 <div class="text-ketentuan">
-                  <p>* File yang diperbolehkan adalah .txt</p>
-                  <p>* Tidak ada huruf kecil</p>
-                  <p>* Tidak boleh ada huruf selain AGCT</p>
-                  <p>* Tidak ada spasi</p>
+                  <p v-bind:class="{'green': !txtFlag, 'red': txtFlag}">* File yang diperbolehkan adalah .txt</p>
+                  <p v-bind:class="{'green': !capitalFlag, 'red': capitalFlag}">* Tidak ada huruf kecil</p>
+                  <p v-bind:class="{'green': !acgtFlag, 'red': acgtFlag}">* Tidak boleh ada huruf selain AGCT</p>
+                  <p v-bind:class="{'green': !spaceFlag, 'red': spaceFlag}">* Tidak ada spasi</p>
                 </div>
               </div>
               <div class="form-submit">
-                <button type="button" class="button-submit">Submit!</button>
+                <button @click="submitPenyakit" type="button" class="button-submit">Submit!</button>
               </div>
             </form>
           </div>
@@ -61,8 +64,90 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: "AddPenyakit",
+  data() {
+    return {
+      acgtFlag : true,
+      txtFlag : true,
+      capitalFlag : true,
+      spaceFlag : true,
+      file : null,
+      content : null,
+    };
+  },
+  methods: {
+    async submitPenyakit(e){
+      const namaPenyakit = this.$refs.namaPenyakit.value;
+      if (this.txtFlag || this.capitalFlag || this.acgtFlag || this.spaceFlag || this.content == "") {
+        alert("Mohon periksa kembali file anda!");
+      } else if (namaPenyakit == "") {
+        alert("Mohon isi nama penyakit!");
+      // } else if penyakitnya udah ada
+      } else {
+        const formData = {
+          nama : namaPenyakit,
+          rantai : this.content
+        }
+        console.log(formData)
+        await axios({
+          method: "post",
+          url: "http://localhost:9000/penyakit/create",
+          data: formData,
+          headers: { "Content-Type": "application/json" },
+        })
+          .then(function (response) {
+            //handle success
+            alert("Penambahan penyakit berhasil!");
+          })
+          .catch(function (response) {
+            //handle error
+            if (response.status == 400) {
+              alert("Data penyakit tersebut sudah ada!");
+            }else{
+              alert("Penambahan penyakit gagal!");
+            }
+          });
+      }
+
+      },
+    readUploadedFileAsText(inputFile){
+      const temporaryFileReader = new FileReader();
+      
+      if(inputFile.name.includes(".txt")){
+        this.txtFlag = false;
+      }
+
+      return new Promise((resolve, reject) => {
+        temporaryFileReader.onerror = () => {
+          temporaryFileReader.abort();
+          reject(new DOMException("Problem parsing input file."));
+        };
+
+        temporaryFileReader.onload = () => {
+          resolve(temporaryFileReader.result);
+        };
+        temporaryFileReader.readAsText(inputFile);
+      });
+    },
+    async upload(){
+      this.file = this.$refs.doc.files[0];
+  
+      try {
+        this.content = await this.readUploadedFileAsText(this.file)  
+      } catch (e) {
+        alert(e)
+      }
+      const rg_atgc = /[^AGCT]/g;
+      const rg_capital = /[^A-Z]/g;
+      const rg_space = /\s/g;
+      this.acgtFlag = rg_atgc.test(this.content);
+      this.capitalFlag = rg_capital.test(this.content);
+      this.spaceFlag = rg_space.test(this.content);
+      console.log(this.content);
+    },
+  },
 };
 </script>
 
@@ -76,6 +161,13 @@ body {
   height: 100%;
 }
 
+.green {
+  color: #2ecc71;
+}
+
+.red {
+  color: #e74c3c;
+}
 .background {
   position: relative;
   overflow: hidden;
