@@ -78,6 +78,12 @@ export default {
     };
   },
   methods: {
+    resetFlags() {
+      this.txtFlag = true;
+      this.acgtFlag = true;
+      this.capitalFlag = true;
+      this.spaceFlag = true;
+    },
     async submitPenyakit(e){
       const namaPenyakit = this.$refs.namaPenyakit.value;
       if (this.txtFlag || this.capitalFlag || this.acgtFlag || this.spaceFlag || this.content == "") {
@@ -109,6 +115,10 @@ export default {
               alert("Penambahan penyakit gagal!");
             }
           });
+          this.$refs.namaPenyakit.value = "";
+          this.$refs.doc.value = null;
+          this.resetFlags();
+
       }
 
       },

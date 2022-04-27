@@ -88,6 +88,12 @@ export default {
     };
   },
   methods: {
+    resetFlags() {
+      this.txtFlag = true;
+      this.acgtFlag = true;
+      this.capitalFlag = true;
+      this.spaceFlag = true;
+    },
     async submitPemeriksaan(e){
       const namaPrediksiPenyakit = this.$refs.namaPrediksiPenyakit.value;
       const namaPasien = this.$refs.namaPasien.value
@@ -98,28 +104,34 @@ export default {
       // } else if penyakitnya udah ada
       } else {
         const formData = {
-          nama : namaPrediksiPenyakit,
-          rantai : this.content
+          nama : namaPasien,
+          rantai : this.content,
+          penyakit : namaPrediksiPenyakit
         }
         console.log(formData)
         await axios({
           method: "post",
-          url: "http://localhost:9000/penyakit/create",
+          url: "http://localhost:9000/pemeriksaan/create",
           data: formData,
           headers: { "Content-Type": "application/json" },
         })
           .then(function (response) {
             //handle success
-            alert("Penambahan penyakit berhasil!");
+            alert("Pemeriksaan berhasil!");
+            console.log(response.data);
           })
           .catch(function (response) {
             //handle error
-            if (response.status == 400) {
-              alert("Data penyakit tersebut sudah ada!");
+            if (response.status == 404) {
+              alert("Penyakit tersebut tidak ada di database kami!");
             }else{
-              alert("Penambahan penyakit gagal!");
+              alert("Pemeriksaan gagal!");
             }
           });
+          this.$refs.namaPrediksiPenyakit.value = "";
+          this.$refs.namaPasien.value = "";
+          this.$refs.doc.value = null;
+          this.resetFlags();
       }
 
       },
