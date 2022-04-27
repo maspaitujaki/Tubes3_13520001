@@ -1,17 +1,9 @@
 <template>
-  <AddPenyakit />
+  <div id="nav"></div>
+  <router-view />
 </template>
 
-<script>
-import AddPenyakit from "./components/AddPenyakit.vue";
-
-export default {
-  name: "App",
-  components: {
-    AddPenyakit,
-  },
-};
-</script>
+<script></script>
 
 <style>
 #app {

@@ -8,13 +8,13 @@
           </div>
           <ul class="navigation-bar">
             <li class="active">
-              <a href="#">Tambah Penyakit</a>
+              <router-link to="/">Tambah Penyakit</router-link>
             </li>
             <li class="inactive">
-              <a href="history">Hasil Prediksi</a>
+              <router-link to="/riwayat">Hasil Prediksi</router-link>
             </li>
             <li class="inactive">
-              <a href="prediction">Tes Penyakit</a>
+              <router-link to="/prediksi">Tes DNA</router-link>
             </li>
           </ul>
         </div>
@@ -63,9 +63,6 @@
 <script>
 export default {
   name: "AddPenyakit",
-  props: {
-    msg: String,
-  },
 };
 </script>
 
