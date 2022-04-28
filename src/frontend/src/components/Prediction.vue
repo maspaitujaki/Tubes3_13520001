@@ -91,7 +91,7 @@ import Test from './Test.vue'
 export default {
   data() {
     return {
-      result : {tanggal:'',nama:'==',penyakit:'==',prediksi:'==',hasil:'=='},
+      result : {tanggal:'==',nama:'==',penyakit:'==',prediksi:'==',hasil:'=='},
       acgtFlag : true,
       txtFlag : true,
       capitalFlag : true,
