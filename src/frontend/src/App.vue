@@ -3,7 +3,17 @@
   <router-view />
 </template>
 
-<script></script>
+<script>
+  export default {
+    name: 'App',
+    metaInfo: {
+      // if no subcomponents specify a metaInfo.title, this title will be used
+      title: 'awokwok',
+      // all titles will be injected into this template
+      titleTemplate: '%s | awokwok'
+    }
+  }
+</script>
 
 <style>
 #app {
