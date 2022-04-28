@@ -4,11 +4,13 @@
       <div class="canvas">
         <div class="container-header">
           <div class="container-logo">
-            <img src="../assets/logo-full.svg" alt="" class="logo-full" />
+            <router-link to="/">
+                <img src="../assets/logo-full.svg" alt="" class="logo-full" />
+            </router-link>
           </div>
           <ul class="navigation-bar">
             <li class="inactive">
-              <router-link to="/">Tambah Penyakit</router-link>
+              <router-link to="/penyakit">Tambah Penyakit</router-link>
             </li>
             <li class="active">
               <router-link to="/riwayat">Hasil Prediksi</router-link>
@@ -323,6 +325,7 @@ ul li.active a {
   border-radius: 15px;
   font-family: "Quicksand", sans-serif;
   font-weight: 700;
+  cursor: pointer;
 }
 
 .container-form .form-submit-riwayat .button-submit:hover {

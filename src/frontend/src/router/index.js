@@ -2,10 +2,16 @@ import { createWebHistory, createRouter } from "vue-router";
 import AddPenyakit from "../components/AddPenyakit.vue";
 import Prediction from "../components/Prediction.vue";
 import History from "../components/History.vue";
+import Main from "../components/Main.vue";
 
 const routes = [
   {
     path: "/",
+    name: "Main",
+    component: Main,
+  },
+  {
+    path: "/penyakit",
     name: "AddPenyakit",
     component: AddPenyakit,
   },

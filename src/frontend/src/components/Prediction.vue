@@ -4,11 +4,13 @@
       <div class="canvas">
         <div class="container-header">
           <div class="container-logo">
-            <img src="../assets/logo-full.svg" alt="" class="logo-full" />
+            <router-link to="/">
+                <img src="../assets/logo-full.svg" alt="" class="logo-full" />
+            </router-link>
           </div>
           <ul class="navigation-bar">
             <li class="inactive">
-              <router-link to="/">Tambah Penyakit</router-link>
+              <router-link to="/penyakit">Tambah Penyakit</router-link>
             </li>
             <li class="inactive">
               <router-link to="/riwayat">Hasil Prediksi</router-link>
@@ -89,7 +91,7 @@ import Test from './Test.vue'
 export default {
   data() {
     return {
-      result : {},
+      result : {tanggal:'',nama:'==',penyakit:'==',prediksi:'==',hasil:'=='},
       acgtFlag : true,
       txtFlag : true,
       capitalFlag : true,
@@ -200,11 +202,11 @@ body {
 }
 
 .green {
-  color: #2ecc71;
+  color: #B0FD96  ;
 }
 
 .red {
-  color: #e74c3c;
+  color: #fff;
 }
 
 .background {
@@ -361,6 +363,7 @@ ul li.active a {
   border-radius: 15px;
   font-family: "Quicksand", sans-serif;
   font-weight: 700;
+  cursor: pointer;
 }
 
 .container-form-prediksi .form-submit-prediksi .button-submit:hover {

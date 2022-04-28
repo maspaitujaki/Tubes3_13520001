@@ -4,11 +4,13 @@
       <div class="canvas">
         <div class="container-header">
           <div class="container-logo">
-            <img src="../assets/logo-full.svg" alt="" class="logo-full" />
+            <router-link to="/">
+                <img src="../assets/logo-full.svg" alt="" class="logo-full" />
+            </router-link>
           </div>
           <ul class="navigation-bar">
             <li class="active">
-              <router-link to="/">Tambah Penyakit</router-link>
+              <router-link to="/penyakit">Tambah Penyakit</router-link>
             </li>
             <li class="inactive">
               <router-link to="/riwayat">Hasil Prediksi</router-link>
@@ -172,11 +174,11 @@ body {
 }
 
 .green {
-  color: #2ecc71;
+  color: #B0FD96  ;
 }
 
 .red {
-  color: #e74c3c;
+  color: #fff;
 }
 
 .background {
@@ -326,4 +328,5 @@ ul li.active a {
   font-size: 16px;
   border-radius: 15px;
 }
+
 </style>

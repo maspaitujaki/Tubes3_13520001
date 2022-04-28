@@ -7,7 +7,7 @@
 
 <style>
 #app {
-  font-family: "Quicksand", sans-serif;
+  font-family: "Quicksand", helvetica;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
