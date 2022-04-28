@@ -97,9 +97,9 @@ export default {
     async submitPemeriksaan(e){
       const namaPrediksiPenyakit = this.$refs.namaPrediksiPenyakit.value;
       const namaPasien = this.$refs.namaPasien.value
-      if (this.txtFlag || this.capitalFlag || this.acgtFlag || this.spaceFlag || this.content == "") {
+      if (this.txtFlag || this.capitalFlag || this.acgtFlag || this.spaceFlag || this.content === "") {
         alert("Mohon periksa kembali file anda!");
-      } else if (namaPrediksiPenyakit == "" || namaPasien == "") {
+      } else if (namaPrediksiPenyakit === "" || namaPasien === "") {
         alert("Mohon isi form dengan benar!");
       // } else if penyakitnya udah ada
       } else {
@@ -111,7 +111,7 @@ export default {
         console.log(formData)
         await axios({
           method: "post",
-          url: "http://localhost:9000/pemeriksaan/create",
+          url: "https://dna-matching-api.herokuapp.com/pemeriksaan/create",
           data: formData,
           headers: { "Content-Type": "application/json" },
         })
@@ -122,7 +122,7 @@ export default {
           })
           .catch(function (response) {
             //handle error
-            if (response.status == 404) {
+            if (response.status === 404) {
               alert("Penyakit tersebut tidak ada di database kami!");
             }else{
               alert("Pemeriksaan gagal!");

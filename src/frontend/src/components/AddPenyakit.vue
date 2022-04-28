@@ -86,9 +86,9 @@ export default {
     },
     async submitPenyakit(e){
       const namaPenyakit = this.$refs.namaPenyakit.value;
-      if (this.txtFlag || this.capitalFlag || this.acgtFlag || this.spaceFlag || this.content == "") {
+      if (this.txtFlag || this.capitalFlag || this.acgtFlag || this.spaceFlag || this.content === "") {
         alert("Mohon periksa kembali file anda!");
-      } else if (namaPenyakit == "") {
+      } else if (namaPenyakit === "") {
         alert("Mohon isi nama penyakit!");
       // } else if penyakitnya udah ada
       } else {
@@ -99,7 +99,7 @@ export default {
         console.log(formData)
         await axios({
           method: "post",
-          url: "http://localhost:9000/penyakit/create",
+          url: "https://dna-matching-api.herokuapp.com/penyakit/create",
           data: formData,
           headers: { "Content-Type": "application/json" },
         })
@@ -109,7 +109,7 @@ export default {
           })
           .catch(function (response) {
             //handle error
-            if (response.status == 400) {
+            if (response.status === 400) {
               alert("Data penyakit tersebut sudah ada!");
             }else{
               alert("Penambahan penyakit gagal!");

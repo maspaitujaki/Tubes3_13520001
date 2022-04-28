@@ -30,11 +30,12 @@
                   type="text"
                   id="query-search"
                   name="query-search"
-                  placeholder="<tanggal_prediksi><spasi><nama_penyakit>..."
+                  ref="querySearch"
+                  placeholder="<YYYY-MM-DD><spasi><nama_penyakit>..."
                 />
               </div>
               <div class="form-submit-riwayat">
-                <button type="button" class="button-submit">Search!</button>
+                <button @click="submit" type="button" class="button-submit">Search!</button>
               </div>
             </form>
           </div>
@@ -45,7 +46,131 @@
 </template>
 
 <script>
-export default {};
+import axios from 'axios'
+export default {
+  data(){
+    return{
+      tanggalFlag : false,
+      penyakitFlag : false,
+      spaceFlag : false
+    };
+  },
+  methods:{
+    async submit(e){
+      let query = this.$refs.querySearch.value;
+      let tanggal;
+      let penyakit;
+      console.log(query)
+      // regex
+      const rg_tanggal = /\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])*/g;
+      const rg_penyakit = /[a-zA-Z0-9]*/g;
+      const rg_space = /\s/g;
+
+      // cek tanggal
+      this.tanggalFlag = rg_tanggal.test(query);
+      if (this.tanggalFlag){
+        tanggal = query.match(rg_tanggal)[0];
+        query = query.replace(rg_tanggal, '');
+      }
+      
+      //ilangin spasi
+      query = query.replace(rg_space, '');
+      
+      // ambil penyakit
+      this.penyakitFlag = rg_penyakit.test(query);
+      if (this.penyakitFlag){
+        penyakit = query.match(rg_penyakit)[0];
+        if (penyakit === ""){
+          this.penyakitFlag = false;
+        }
+      }
+
+      console.log(this.tanggalFlag)
+      console.log(tanggal)
+      console.log(this.penyakitFlag)
+      console.log(penyakit)
+
+
+      if (this.tanggalFlag && this.penyakitFlag){
+        await axios(
+          {
+            method: 'get',
+            url: 'https://dna-matching-api.herokuapp.com/pemeriksaan/get/whenwhat?penyakit=' + penyakit + '&tanggal=' + tanggal,
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+        ).then(
+          (response) => {
+            console.log(response.data);
+          }
+        ).catch(
+          (error) => {
+            
+          }
+        );
+      }
+      else if (this.tanggalFlag && !this.penyakitFlag){
+        await axios(
+          {
+            method: 'get',
+            url: 'https://dna-matching-api.herokuapp.com/pemeriksaan/get/when?tanggal=' + tanggal,
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+        ).then(
+          (response) => {
+            console.log(response.data);
+          }
+        ).catch(
+          (error) => {
+            
+          }
+        );
+      }
+      else if (!this.tanggalFlag && this.penyakitFlag){
+        await axios(
+          {
+            method: 'get',
+            url: 'https://dna-matching-api.herokuapp.com/pemeriksaan/get/what?penyakit=' + penyakit,
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+        ).then(
+          (response) => {
+            console.log(response.data);
+          }
+        ).catch(
+          (error) => {
+            
+          }
+        );
+      }
+      else{
+        await axios(
+          {
+            method: 'get',
+            url: 'https://dna-matching-api.herokuapp.com/pemeriksaan/get',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+        ).then(
+          (response) => {
+            console.log(response.data);
+          }
+        ).catch(
+          (error) => {
+            
+          }
+        );
+      }
+
+    }
+  }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
