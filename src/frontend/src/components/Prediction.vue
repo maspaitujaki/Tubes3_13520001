@@ -69,13 +69,12 @@
             </form>
           </div>
           <Test
-            v-for="test in tests"
-            :key="test.id"
-            :nama="test.nama"
-            :tanggal="test.tanggal"
-            :penyakit="test.penyakit"
-            :prediksi="test.prediksi"
-            :hasil="test.hasil"
+            :key="result.id"
+            :nama="result.nama"
+            :tanggal="result.tanggal"
+            :penyakit="result.penyakit"
+            :prediksi="result.prediksi"
+            :hasil="result.hasil"
           ></Test>
         </div>
       </div>
@@ -90,16 +89,13 @@ import Test from './Test.vue'
 export default {
   data() {
     return {
-      tests: [        
-        { tanggal: '2022-02-20', nama: 'My journey with Vue', penyakit: 'pusing', prediksi: '100%', hasil: true},
-        { tanggal: '2022-02-20', nama: 'My journey with Vue', penyakit: 'pusing', prediksi: '100%', hasil: true},
-      ],
+      result : {},
       acgtFlag : true,
       txtFlag : true,
       capitalFlag : true,
       spaceFlag : true,
       file : null,
-      content : null,
+      content : null
     };
   },
   components: {
@@ -133,16 +129,17 @@ export default {
           data: formData,
           headers: { "Content-Type": "application/json" },
         })
-          .then(function (response) {
+          .then((response) => {
             //handle success
             alert("Pemeriksaan berhasil!");
-            console.log(response.data);
+            this.result = response.data;
           })
-          .catch(function (response) {
+          .catch((response) => {
             //handle error
             if (response.status === 404) {
               alert("Penyakit tersebut tidak ada di database kami!");
             }else{
+              alert(response);
               alert("Pemeriksaan gagal!");
             }
           });

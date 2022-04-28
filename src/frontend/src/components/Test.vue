@@ -1,6 +1,12 @@
 <script>
 export default {
-  props: ['tanggal', 'nama', 'penyakit', 'prediksi', 'hasil']
+  props: ['tanggal', 'nama', 'penyakit', 'prediksi', 'hasil'],
+  methods: {
+      parseDate(tanggal) {
+        const rg_tanggal = /\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])*/g;
+        return tanggal.match(rg_tanggal)[0];
+      }
+  }
 }
 </script>
 
@@ -16,7 +22,8 @@ export default {
 .container-test {
   position: relative;
   margin: auto;
-  transform: translate(0%, 130%);
+  transform: translate(0%, 100%);
+  padding-bottom: 40px;
 }
 
 .container-test-box {

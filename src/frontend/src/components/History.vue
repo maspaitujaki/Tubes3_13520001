@@ -39,16 +39,18 @@
               </div>
             </form>
           </div>
-          <Query
-            v-for="query in queries"
-            :key="query.id"
-            :nomor="query.nomor"
-            :nama="query.nama"
-            :tanggal="query.tanggal"
-            :penyakit="query.penyakit"
-            :prediksi="query.prediksi"
-            :hasil="query.hasil"
-          ></Query>
+          <div class="container-result-query">
+            <Query
+              v-for="query in queries"
+              :key="query.id"
+              :nomor="query.nomor"
+              :nama="query.nama"
+              :tanggal="query.tanggal"
+              :penyakit="query.penyakit"
+              :prediksi="query.prediksi"
+              :hasil="query.hasil"
+            ></Query>
+          </div>
         </div>
       </div>
     </div>
@@ -63,8 +65,6 @@ export default {
   data(){
     return{
       queries: [        
-        { nomor: 1, id: 1, nama: 'My journey with Vue', tanggal: '2022-02-20', penyakit: 'pusing', prediksi: '100%', hasil: true},
-        { nomor: 2, id: 2, nama: 'My journey with Vue', tanggal: '2022-02-20', penyakit: 'pusing', prediksi: '100%', hasil: true},
       ],
       tanggalFlag : false,
       penyakitFlag : false,
@@ -122,6 +122,10 @@ export default {
         ).then(
           (response) => {
             console.log(response.data);
+            this.queries = response.data;
+            for (let i = 0; i < this.queries.length; i++){
+              this.queries[i].nomor = i + 1;
+            }            
           }
         ).catch(
           (error) => {
@@ -141,6 +145,10 @@ export default {
         ).then(
           (response) => {
             console.log(response.data);
+            this.queries = response.data;
+            for (let i = 0; i < this.queries.length; i++){
+              this.queries[i].nomor = i + 1;
+            }            
           }
         ).catch(
           (error) => {
@@ -160,6 +168,10 @@ export default {
         ).then(
           (response) => {
             console.log(response.data);
+            this.queries = response.data;
+            for (let i = 0; i < this.queries.length; i++){
+              this.queries[i].nomor = i + 1;
+            }
           }
         ).catch(
           (error) => {
@@ -179,6 +191,10 @@ export default {
         ).then(
           (response) => {
             console.log(response.data);
+            this.queries = response.data;
+            for (let i = 0; i < this.queries.length; i++){
+              this.queries[i].nomor = i + 1;
+            }
           }
         ).catch(
           (error) => {
@@ -347,5 +363,9 @@ ul li.active a {
 .bold {
   font-weight: bold;
   color: rgb(94, 31, 172);
+}
+
+.container-result-query {
+  padding-bottom: 140px;
 }
 </style>

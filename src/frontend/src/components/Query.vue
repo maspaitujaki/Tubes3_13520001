@@ -1,13 +1,19 @@
 <script>
 export default {
-  props: ['nomor', 'id', 'nama', 'tanggal', 'penyakit', 'prediksi', 'hasil']
+  props: ['nomor', 'id', 'nama', 'tanggal', 'penyakit', 'prediksi', 'hasil'],
+  methods: {
+      parseDate(tanggal) {
+        const rg_tanggal = /\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])*/g;
+        return tanggal.match(rg_tanggal)[0];
+      }
+  }
 }
 </script>
 
 <template>
     <div class="container-result">
         <div class="container-result-box">
-            <p><span class="bold">{{nomor}}.</span> {{tanggal}} - {{nama}} - {{penyakit}} - {{prediksi}} - {{hasil}}</p>
+            <p><span class="bold">{{nomor}}.</span> {{this.parseDate(tanggal)}} - {{nama}} - {{penyakit}} - {{prediksi}} - {{hasil}}</p>
         </div>
     </div>
 </template>
