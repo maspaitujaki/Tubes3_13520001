@@ -68,6 +68,15 @@
               </div>
             </form>
           </div>
+          <Test
+            v-for="test in tests"
+            :key="test.id"
+            :nama="test.nama"
+            :tanggal="test.tanggal"
+            :penyakit="test.penyakit"
+            :prediksi="test.prediksi"
+            :hasil="test.hasil"
+          ></Test>
         </div>
       </div>
     </div>
@@ -76,9 +85,15 @@
 
 <script>
 import axios from 'axios'
+import Test from './Test.vue'
+
 export default {
   data() {
     return {
+      tests: [        
+        { tanggal: '2022-02-20', nama: 'My journey with Vue', penyakit: 'pusing', prediksi: '100%', hasil: true},
+        { tanggal: '2022-02-20', nama: 'My journey with Vue', penyakit: 'pusing', prediksi: '100%', hasil: true},
+      ],
       acgtFlag : true,
       txtFlag : true,
       capitalFlag : true,
@@ -86,6 +101,9 @@ export default {
       file : null,
       content : null,
     };
+  },
+  components: {
+    Test
   },
   methods: {
     resetFlags() {
@@ -194,8 +212,7 @@ body {
 
 .background {
   position: relative;
-  overflow: hidden;
-  height: 650px;
+  height: 100%;
 }
 
 .container-header {
@@ -246,9 +263,10 @@ body {
   width: 800px;
   height: 350px;
   border-radius: 8%/20%;
-  transform: translate(45%, 28%);
+  transform: translate(0%, 28%);
   z-index: 0;
   color: white;
+  margin: auto;
 }
 
 ul li a:hover {

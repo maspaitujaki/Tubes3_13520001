@@ -178,10 +178,10 @@ body {
 .red {
   color: #e74c3c;
 }
+
 .background {
   position: relative;
-  overflow: hidden;
-  height: 650px;
+  height: 100%;
 }
 
 .container-header {
@@ -232,9 +232,10 @@ body {
   width: 800px;
   height: 350px;
   border-radius: 8%/20%;
-  transform: translate(45%, 28%);
+  transform: translate(0%, 28%);
   z-index: 0;
   color: white;
+  margin: auto;
 }
 
 ul li a:hover {

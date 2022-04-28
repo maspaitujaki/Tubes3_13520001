@@ -39,6 +39,16 @@
               </div>
             </form>
           </div>
+          <Query
+            v-for="query in queries"
+            :key="query.id"
+            :nomor="query.nomor"
+            :nama="query.nama"
+            :tanggal="query.tanggal"
+            :penyakit="query.penyakit"
+            :prediksi="query.prediksi"
+            :hasil="query.hasil"
+          ></Query>
         </div>
       </div>
     </div>
@@ -47,13 +57,22 @@
 
 <script>
 import axios from 'axios'
+import Query from './Query.vue'
+
 export default {
   data(){
     return{
+      queries: [        
+        { nomor: 1, id: 1, nama: 'My journey with Vue', tanggal: '2022-02-20', penyakit: 'pusing', prediksi: '100%', hasil: true},
+        { nomor: 2, id: 2, nama: 'My journey with Vue', tanggal: '2022-02-20', penyakit: 'pusing', prediksi: '100%', hasil: true},
+      ],
       tanggalFlag : false,
       penyakitFlag : false,
       spaceFlag : false
     };
+  },
+  components: {
+    Query
   },
   methods:{
     async submit(e){
@@ -185,8 +204,7 @@ body {
 
 .background {
   position: relative;
-  overflow: hidden;
-  height: 650px;
+  height: 100%;
 }
 
 .container-header {
@@ -237,9 +255,10 @@ body {
   width: 800px;
   height: 80px;
   border-radius: 2.5%/25%;
-  transform: translate(45%, 130%);
+  transform: translate(0%, 130%);
   z-index: 0;
   color: white;
+  margin: auto;
 }
 
 ul li a:hover {
@@ -301,5 +320,32 @@ ul li.active a {
   display: inline-block;
   font-size: 16px;
   border-radius: 15px;
+}
+
+.container-result {
+  position: relative;
+  margin: auto;
+  transform: translate(0%, 130%);
+}
+
+.container-result-box {
+  margin: auto;
+  width: 1000px;
+  height: 90px;
+  border-radius: 20px;
+  background-color: #f2f2f2;
+}
+
+.container-result-box p{
+  transform: translate(0%, 5%);
+  position: relative;
+  font-size: 24px;
+  text-align: left;
+  padding: 25px;
+}
+
+.bold {
+  font-weight: bold;
+  color: rgb(94, 31, 172);
 }
 </style>
