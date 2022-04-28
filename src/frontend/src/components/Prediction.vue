@@ -110,6 +110,10 @@ export default {
       this.capitalFlag = true;
       this.spaceFlag = true;
     },
+    parseDate(tanggal) {
+        const rg_tanggal = /\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])*/g;
+        return tanggal.match(rg_tanggal)[0];
+      },
     async submitPemeriksaan(e){
       const namaPrediksiPenyakit = this.$refs.namaPrediksiPenyakit.value;
       const namaPasien = this.$refs.namaPasien.value
@@ -135,6 +139,7 @@ export default {
             //handle success
             alert("Pemeriksaan berhasil!");
             this.result = response.data;
+            this.result.tanggal = this.parseDate(this.result.tanggal);
           })
           .catch((response) => {
             //handle error
