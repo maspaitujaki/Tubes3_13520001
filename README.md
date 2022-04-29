@@ -1,6 +1,9 @@
 # Awokwok DNA Matching
-> Aplikasi DNA Matching untuk mendeteksi penyakit sesuai masukan sequence DNA dengan menggunakan algoritma KMP dan BM.
-> Video demo [_di sana_](https://youtu.be/Wtx9P_odyN4). Link situs aplikasi dapat diakses [_di sini_](https://awokwok-dna-matching.herokuapp.com/).
+> Aplikasi DNA Matching untuk mendeteksi penyakit sesuai masukan sequence DNA dengan menggunakan algoritma Knuth-Morris-Pratt (KMP) dan Boyer-Moore (BM).
+
+> Video demo dapat diakses [_di sana_](https://youtu.be/Wtx9P_odyN4).
+
+> Aplikasi yang telah deployed dapat diakses [_di sini_](https://awokwok-dna-matching.herokuapp.com/).
 
 ## Fitur
 Fitur keren yang tersedia
@@ -8,8 +11,24 @@ Fitur keren yang tersedia
 - Tes DNA
 - Periksa Riwayat Tes
 
+## Requirement
+- [node.js](https://nodejs.org/en/)
+- [golang](https://go.dev/)
+- DBMS [PostgreSQL](https://www.postgresql.org/) dengan menyiapkan sebuah database kosong
+
 ## Setup
-Jalankan `npm install` pada terminal untuk melakukan instalasi semua package yang diperlukan. Kemudian, jalankan `npm run serve` pada folder src/main/frontend.
+### Front-End
+1. Pastikan node.js sudah terinstall
+2. Buka terminal pada folder src/frontend/
+3. Jalankan `npm install` pada terminal untuk melakukan instalasi semua package yang diperlukan.
+4. Jalankan `npm run serve` pada folder src/frontend.
+5. Buka http://localhost:8080
+
+### Back-End
+1. Pastikan nama database kosong yang disediakan sama dengan nama database pada file config .env
+2. Ubah credential database pada .env sesuai dengan setting Postgre di local 
+3. Jalankan `go run main.go` di terminal pada folder src/backend.
+
 
 ## Status
 Status proyek: _selesai_. 
