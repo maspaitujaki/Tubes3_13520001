@@ -16,6 +16,8 @@
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
 #app {
   font-family: "Quicksand", helvetica;
   -webkit-font-smoothing: antialiased;
